@@ -6,7 +6,12 @@
     <title>Photo Gallery</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Custom CSS -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=comment" />
+<!-- Custom CSS -->
     <style>
         /* Masonry-style layout */
 .gallery {
@@ -70,7 +75,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">PHOTO GALAXY</a>
+            <a class="navbar-brand" href="#"><h1 class="text-center" style="font-family:Permanent Marker, serif;font-weight: 400;font-style: normal;">PIXELNECE</h1>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,23 +94,38 @@
                 </ul>
                 <form class="d-flex ms-auto">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                
             </div>
         </div>
     </nav>
 <!-- Masonry Gallery -->
 <div class="container my-5">
-    <h1 class="text-center mb-4">PIXELNECE</h1>
+    <h1 class="text-center mb-4" style="font-family:Permanent Marker, serif;font-weight: 400;font-style: normal;">PIXELNECE</h1>
     <div class="gallery">
         <!-- Image Card 1 -->
-        <div class="gallery-item ">
-            <div class="card">
+        <div class="gallery-item position-relative">
+            <div class="card ">
+                <div style="background-color: rgba(240, 248, 255, 0.282);"class="m-2 pt-2 rounded position-absolute row ">
+                    <div class="col-1">
+                        <span class="material-symbols-outlined align-item-bottom">
+                        comment
+                        </span>
+                    </div>
+                    <div class="col ms-1"><p class="rounded">username</p></div>
+                    
+                </div>
                 <img src="https://images.pexels.com/photos/8746984/pexels-photo-8746984.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load" class="card-img-top" alt="Image 1">
                 <div class="card-body mt-3">
                     <h5 class="card-title">Date Uploaded: January 10, 2025</h5>
                     <p class="card-text">Beautiful landscape photo taken during sunrise.</p>
-                    <p class="text-muted">Comments: 12</p>
+                    <div class="row">
+                        <span class="material-symbols-outlined col-1">
+                        comment
+                        </span>
+                    <p class="text-muted col">
+                        Comments: 12</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,53 +188,7 @@
             </div>
         </div>
 
-        <!-- Image Card 2 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/19840368/pexels-photo-19840368/free-photo-of-illuminated-facade-of-the-sheikh-zayed-grand-mosque-in-abu-dhabi-uae.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 2">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 9, 2025</h5>
-                    <p class="card-text">A breathtaking view of the mountains during winter.</p>
-                    <p class="text-muted">Comments: 8</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- Image Card 3 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/11190869/pexels-photo-11190869.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 3">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 8, 2025</h5>
-                    <p class="card-text">A peaceful beach with crystal clear water.</p>
-                    <p class="text-muted">Comments: 5</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Image Card 4 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/17219211/pexels-photo-17219211/free-photo-of-a-mosque-setting-with-a-beautiful-sunny-afternoon-view.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 4">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 7, 2025</h5>
-                    <p class="card-text">A serene forest landscape captured at dusk.</p>
-                    <p class="text-muted">Comments: 10</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Image Card 5 -->
-        <div class="gallery-item">
-            <div class="card rounded-1">
-                <img src="https://images.pexels.com/photos/12486084/pexels-photo-12486084.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 5">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 6, 2025</h5>
-                    <p class="card-text">City skyline at night with beautiful lights.</p>
-                    <p class="text-muted">Comments: 15</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
