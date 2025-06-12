@@ -6,14 +6,21 @@
 
 ## 🌟 Features
 
-- Responsive UI for mobile and desktop    
+- User registration and login  
+- Upload and manage photo galleries  
+- Browse and search photos by categories or tags  
+- Like and comment on photos  
+- Responsive UI for mobile and desktop  
+- User profile management  
 
 ---
 
 ## 🧰 Tech Stack
 
-- Frontend: JavaScript, HTML5, CSS3 
+- Frontend: JavaScript, HTML5, CSS3  
 - Backend: Node.js 
+- Database: -
+- Authentication: - 
 - UI Framework: Bootstrap
 
 ---
@@ -22,7 +29,6 @@
 
 ### Prerequisites
 - Node.js and npm installed  
-- (Any other tools or accounts needed)
 
 ### Installation
 
@@ -38,3 +44,5 @@ npm install
 
 # Start the application
 npm start
+#Access the app on:
+ http://localhost:3000 (or your configured port)
