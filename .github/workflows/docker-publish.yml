@@ -25,7 +25,9 @@ jobs:
 
     - name: Setup Kubeconfig
       run: |
-        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+       mkdir -p $HOME/.kube
+       echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+
 
     - name: Update Kubernetes deployment image
       run: |
