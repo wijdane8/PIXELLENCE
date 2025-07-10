@@ -25,9 +25,12 @@ jobs:
         docker push wijdanali/pixellence:latest
 
     - name: Setup Kubeconfig
+      shell: powershell
       run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+        if (-not (Test-Path -Path $HOME\.kube)) {
+          New-Item -ItemType Directory -Path $HOME\.kube
+        }
+        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME\.kube\config
 
 
     - name: Update Kubernetes deployment image
