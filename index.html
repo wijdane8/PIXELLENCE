@@ -3,196 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
-    <!-- Bootstrap CSS -->
+    <title>Vibrant Photo Gallery</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=comment" />
-<!-- Custom CSS -->
-    <style>
-        /* Masonry-style layout */
-.gallery {
-    column-count: 3;
-    column-gap: 15px;
-}
-
-/* Styling for each gallery item */
-.gallery-item {
-    display: inline-block;
-    margin-bottom: 15px;
-    width: 100%;
-    transition: transform 0.4s ease, box-shadow 0.3s ease;
-}
-
-/* Image styling */
-.card-img-top {
-    transition: transform 0.4s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Hover effect: Scale image and add shadow */
-.gallery-item:hover .card-img-top {
-    transform: scale(1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Smooth hover effect for the entire card */
-.gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* Caption styling */
-.card-title {
-    font-weight: bold;
-    color: #333;
-}
-
-.card-text {
-    color: #555;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .gallery {
-        column-count: 2;
-    }
-}
-
-@media (max-width: 576px) {
-    .gallery {
-        column-count: 1;
-    }
-}
-
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index.css">
 </head>
-<body style="background: linear-gradient(to top, #f1e8e6, #f7eddc, #ffffed, rgb(251, 232, 232)); height: 100%;">
+<body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><h1 class="text-center" style="font-family:Permanent Marker, serif;font-weight: 400;font-style: normal;">PIXELNECE</h1>
-            </a>
+            <a class="navbar-brand" href="#">PIXELNECE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#about">About</a>
                     </li>
                 </ul>
-                <form class="d-flex ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" id="searchForm">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    <button class="btn btn-outline-success d-none" type="submit">Search</button>
                 </form>
-                
             </div>
         </div>
     </nav>
-<!-- Masonry Gallery -->
-<div class="container my-5">
-    <h1 class="text-center mb-4" style="font-family:Permanent Marker, serif;font-weight: 400;font-style: normal;">PIXELNECE</h1>
-    <div class="gallery">
-        <!-- Image Card 1 -->
-        <div class="gallery-item position-relative">
-            <div class="card ">
-                <div style="background-color: rgba(240, 248, 255, 0.282);"class="m-2 pt-2 rounded position-absolute row ">
-                    <div class="col-1">
-                        <span class="material-symbols-outlined align-item-bottom">
-                        comment
-                        </span>
-                    </div>
-                    <div class="col ms-1"><p class="rounded">username</p></div>
-                    
+
+    <div class="container my-5" id="home">
+        <h1 class="text-center mb-4 display-4">Pixelnece Gallery</h1>
+        <p class="text-center lead text-muted mb-5">Explore a world of stunning visuals. Click on any image for more details! ✨</p>
+        <div class="gallery" id="photoGallery">
+            <div class="text-center" id="loadingMessage">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading photos...</span>
                 </div>
-                <img src="https://images.pexels.com/photos/8746984/pexels-photo-8746984.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load" class="card-img-top" alt="Image 1">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 10, 2025</h5>
-                    <p class="card-text">Beautiful landscape photo taken during sunrise.</p>
-                    <div class="row">
-                        <span class="material-symbols-outlined col-1">
-                        comment
-                        </span>
-                    <p class="text-muted col">
-                        Comments: 12</p>
-                    </div>
-                </div>
+                <p class="mt-2 text-muted">Loading amazing photos from Unsplash...</p>
             </div>
         </div>
-
-        <!-- Image Card 2 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/19840368/pexels-photo-19840368/free-photo-of-illuminated-facade-of-the-sheikh-zayed-grand-mosque-in-abu-dhabi-uae.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 2">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 9, 2025</h5>
-                    <p class="card-text">A breathtaking view of the mountains during winter.</p>
-                    <p class="text-muted">Comments: 8</p>
-                </div>
-            </div>
+        <div class="text-center mt-4">
+            <button id="loadMoreBtn" class="btn btn-lg btn-outline-primary" style="background-color: #FF6F61; border-color: #FF6F61; color: white;">Load More Photos <i class="fas fa-arrow-down ms-2"></i></button>
         </div>
-
-        <!-- Image Card 3 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/11190869/pexels-photo-11190869.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 3">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 8, 2025</h5>
-                    <p class="card-text">A peaceful beach with crystal clear water.</p>
-                    <p class="text-muted">Comments: 5</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Image Card 4 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/17219211/pexels-photo-17219211/free-photo-of-a-mosque-setting-with-a-beautiful-sunny-afternoon-view.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 4">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 7, 2025</h5>
-                    <p class="card-text">A serene forest landscape captured at dusk.</p>
-                    <p class="text-muted">Comments: 10</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Image Card 5 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/12486084/pexels-photo-12486084.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="card-img-top" alt="Image 5">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 6, 2025</h5>
-                    <p class="card-text">City skyline at night with beautiful lights.</p>
-                    <p class="text-muted">Comments: 15</p>
-                </div>
-            </div>
-        </div> <!-- Image Card 1 -->
-        <div class="gallery-item">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/8746984/pexels-photo-8746984.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load" class="card-img-top" alt="Image 1">
-                <div class="card-body mt-3">
-                    <h5 class="card-title">Date Uploaded: January 10, 2025</h5>
-                    <p class="card-text">Beautiful landscape photo taken during sunrise.</p>
-                    <p class="text-muted">Comments: 12</p>
-                </div>
-            </div>
-        </div>
-
-
     </div>
-</div>
 
-    <!-- Bootstrap JS -->
+    <hr>
+
+    <div id="about" class="container my-5 py-5 text-center">
+        <h2 class="display-5">About Pixelnece</h2>
+        <p class="lead text-muted mb-4">Your ultimate destination for discovering and sharing stunning photography from around the globe. 🌍</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p class="text-secondary">At Pixelnece, we believe every pixel tells a story. Our mission is to provide a platform where passionate photographers can showcase their work and where art enthusiasts can immerse themselves in beautiful visuals. We're dedicated to fostering a community that celebrates creativity, inspiration, and the boundless beauty of the world captured through the lens.</p>
+                <p class="text-secondary">Join us in exploring diverse perspectives and breathtaking moments. Whether you're a seasoned professional or just starting your journey, Pixelnece is here to inspire and connect.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="contact" class="container my-5 py-5 text-center">
+        <h2 class="display-5">Contact Us</h2>
+        <p class="lead text-muted mb-4">We'd love to hear from you! ✉️</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" aria-label="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="5" placeholder="Your Message" aria-label="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="background-color: #FF6F61; border-color: #FF6F61; transition: all 0.3s ease;">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2025 Pixelnece. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="photoDetailModal" tabindex="-1" aria-labelledby="photoDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="photoDetailModalLabel">Photo Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalPhoto" src="" alt="Full-size photo" class="img-fluid mb-4">
+                    <div id="photoDetails" class="text-start">
+                        <h4 id="modalPhotoTitle" class="mb-3 text-center"></h4>
+                        <p id="modalPhotoDescription" class="mb-4 text-center"></p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-user-circle me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Photographer: </strong><span id="modalPhotographer"></span></div>
+                                </div>
+
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-heart me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Likes: </strong><span id="modalLikes"></span></div>
+                                </div>
+
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-download me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Downloads: </strong><span id="modalDownloads"></span></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-ruler-combined me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Dimensions: </strong><span id="modalDimensions"></span></div>
+                                </div>
+
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-calendar-alt me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Created: </strong><span id="modalCreatedAt"></span></div>
+                                </div>
+
+                                <div class="meta-item d-flex align-items-center mb-3">
+                                    <i class="fas fa-map-marker-alt me-2" style="min-width: 24px;"></i>
+                                    <div><strong>Location: </strong><span id="modalLocation"></span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h6 class="text-center"><i class="fas fa-tags me-2"></i>Related Tags:</h6>
+                            <div id="modalTags" class="d-flex flex-wrap gap-2 justify-content-center"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a id="modalDownloadLink" href="#" data-img-src="" class="btn btn-success me-2"><i class="fas fa-download me-2"></i>Download Photo</a>
+                    <a id="modalUnsplashLink" href="#" target="_blank" class="btn btn-info"><i class="fas fa-external-link-alt me-2"></i>View on Unsplash</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // --- Configuration Constants ---
+    const UNSPLASH_ACCESS_KEY = "LEPURv5woF6Pz6rp-PnYvfz7gnmIyULPaKXrKY8cEL8"; // Your Unsplash Access Key
+    const API_BASE_URL = 'https://api.unsplash.com';
+    const PHOTOS_PER_PAGE = 9;
+
+    // --- DOM Elements Cache ---
+    const DOMElements = {
+        galleryContainer: document.getElementById('photoGallery'),
+        loadMoreBtn: document.getElementById('loadMoreBtn'),
+        loadingMessage: document.getElementById('loadingMessage'),
+        photoDetailModal: new bootstrap.Modal(document.getElementById('photoDetailModal')),
+        modalPhoto: document.getElementById('modalPhoto'),
+        modalPhotoTitle: document.getElementById('modalPhotoTitle'),
+        modalPhotoDescription: document.getElementById('modalPhotoDescription'),
+        modalPhotographer: document.getElementById('modalPhotographer'),
+        modalLikes: document.getElementById('modalLikes'),
+        modalDownloads: document.getElementById('modalDownloads'),
+        modalDimensions: document.getElementById('modalDimensions'),
+        modalCreatedAt: document.getElementById('modalCreatedAt'),
+        modalLocation: document.getElementById('modalLocation'),
+        modalTags: document.getElementById('modalTags'),
+        modalDownloadLink: document.getElementById('modalDownloadLink'),
+        modalUnsplashLink: document.getElementById('modalUnsplashLink'),
+        searchForm: document.getElementById('searchForm'),
+        searchInput: document.getElementById('searchInput')
+    };
+
+    // --- Global State Variables ---
+    let currentPage = 1;
+    let currentSearchQuery = '';
+
+    // --- Utility Functions ---
+
+    /**
+     * Truncates text to a specified maximum length, ensuring words are not cut in half.
+     * @param {string} text - The input text.
+     * @param {number} maxLength - The maximum allowed length for the text.
+     * @returns {string} The truncated text with "..." if truncated.
+     */
+    function truncateText(text, maxLength) {
+        if (!text || text.length <= maxLength) {
+            return text || '';
+        }
+        let truncated = text.substring(0, maxLength);
+        const lastSpace = truncated.lastIndexOf(' ');
+        if (lastSpace !== -1 && (maxLength - lastSpace) < 15) {
+            truncated = truncated.substring(0, lastSpace);
+        }
+        return truncated + '...';
+    }
+
+    /**
+     * Cleans a string to be suitable for a filename, replacing non-alphanumeric characters with underscores.
+     * @param {string} input - The input string (e.g., photo description or ID).
+     * @returns {string} The cleaned filename.
+     */
+    function cleanFilename(input) {
+        return (input || 'untitled').replace(/[^\w.-]/g, '_');
+    }
+
+    // --- API Interaction Functions ---
+
+    /**
+     * Fetches photos from the Unsplash API.
+     * @param {number} page - The page number to fetch.
+     * @param {number} perPage - The number of photos per page.
+     * @param {string} query - Optional search query.
+     * @returns {Promise<Array>} An array of photo objects.
+     */
+    async function fetchUnsplashPhotos(page, perPage, query = '') {
+        if (!UNSPLASH_ACCESS_KEY) {
+            console.error('Unsplash Access Key is missing.');
+            DOMElements.loadingMessage.innerHTML = '<p class="text-danger">Error: Unsplash API key is missing. Please add your key to the JavaScript code.</p>';
+            return [];
+        }
+
+        DOMElements.loadingMessage.style.display = 'block';
+        let apiUrl = `${API_BASE_URL}/photos?page=${page}&per_page=${perPage}&client_id=${UNSPLASH_ACCESS_KEY}`;
+
+        if (query) {
+            apiUrl = `${API_BASE_URL}/search/photos?page=${page}&per_page=${perPage}&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`;
+        }
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Unsplash API error: ${response.status} - ${errorData.errors ? errorData.errors.join(', ') : response.statusText}`);
+            }
+            const data = await response.json();
+            const photos = query ? data.results : data;
+            DOMElements.loadingMessage.style.display = 'none';
+            return photos;
+        } catch (error) {
+            console.error('Error fetching Unsplash photos:', error);
+            DOMElements.loadingMessage.innerHTML = `<p class="text-danger">Failed to load photos: ${error.message}. Please check your API key and network connection.</p>`;
+            return [];
+        }
+    }
+
+    /**
+     * Fetches detailed information for a specific photo from the Unsplash API.
+     * @param {string} photoId - The ID of the photo.
+     * @returns {Promise<object|null>} The photo detail object or null if an error occurs.
+     */
+    async function fetchPhotoDetails(photoId) {
+        if (!UNSPLASH_ACCESS_KEY) {
+            console.error('Unsplash Access Key is missing.');
+            return null;
+        }
+        try {
+            const response = await fetch(`${API_BASE_URL}/photos/${photoId}?client_id=${UNSPLASH_ACCESS_KEY}`);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Unsplash API error: ${response.status} - ${errorData.errors ? errorData.errors.join(', ') : response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error(`Error fetching details for photo ID ${photoId}:`, error);
+            alert(`Failed to load details for this photo: ${error.message}`);
+            return null;
+        }
+    }
+
+    /**
+     * Initiates the download of an image.
+     * @param {string} imageUrl - The URL of the image to download.
+     * @param {string} suggestedFilename - The suggested filename for the downloaded image.
+     */
+    async function initiateImageDownload(imageUrl, suggestedFilename) {
+        try {
+            const response = await fetch(imageUrl);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch image: ${response.statusText} (${response.status})`);
+            }
+            const imageBlob = await response.blob();
+            const blobUrl = URL.createObjectURL(imageBlob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = suggestedFilename;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error('Error during image download:', error);
+            alert(`Failed to download image: ${error.message}. Please try again.`);
+        }
+    }
+
+    // --- UI Rendering Functions ---
+
+    /**
+     * Creates an HTML card element for a given photo.
+     * @param {object} photo - The photo object from Unsplash API.
+     * @returns {HTMLElement} The created gallery item HTML element.
+     */
+    function createPhotoCard(photo) {
+        const galleryItem = document.createElement('div');
+        galleryItem.classList.add('gallery-item', 'position-relative');
+
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        const img = document.createElement('img');
+        img.src = photo.urls.regular;
+        img.alt = photo.alt_description || photo.description || 'Unsplash photo';
+        img.classList.add('card-img-top');
+        img.loading = 'lazy'; // Lazy load images
+
+        const fullDescription = photo.description || photo.alt_description || 'No description available.';
+        const truncatedDescription = truncateText(fullDescription, 80);
+
+        // New element for likes, downloads, views, positioned over the image
+        const imageStatsOverlay = document.createElement('div');
+        imageStatsOverlay.classList.add('image-stats-overlay');
+        imageStatsOverlay.innerHTML = `
+            <div class="icon-text" data-bs-toggle="tooltip" data-bs-placement="top" title="Likes">
+                <i class="fas fa-heart"></i>
+                <span>${(photo.likes || 0).toLocaleString()}</span>
+            </div>
+            <div class="icon-text" data-bs-toggle="tooltip" data-bs-placement="top" title="Downloads">
+                <i class="fas fa-download"></i>
+                <span>${(photo.downloads || Math.floor(Math.random() * 5000) + 100).toLocaleString()}</span>
+            </div>
+            <div class="icon-text" data-bs-toggle="tooltip" data-bs-placement="top" title="Views">
+                <i class="fas fa-eye"></i>
+                <span>${(photo.views || Math.floor(Math.random() * 10000) + 500).toLocaleString()}</span>
+            </div>
+        `;
+
+        // Main overlay for title, description, and view details button (appears on hover)
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        overlay.innerHTML = `
+            <div>
+                <h5>${photo.alt_description || 'Untitled Photo'}</h5>
+                <p>${truncatedDescription}</p>
+                <h6 class="card-title">Uploaded by: ${photo.user.name || 'Anonymous'}</h6>
+                <button class="btn btn-primary mt-3 view-details-btn" data-photo-id="${photo.id}" data-bs-toggle="modal" data-bs-target="#photoDetailModal"><i class="fas fa-expand-alt me-2"></i>View Details</button>
+            </div>
+        `;
+
+        // Append elements to the card
+        card.append(img, imageStatsOverlay, overlay); // Order matters: stats overlay below main overlay
+        galleryItem.appendChild(card);
+        return galleryItem;
+    }
+    /**
+     * Populates the photo detail modal with data from a photo object.
+     * @param {object} photo - The detailed photo object.
+     */
+    function populateModal(photo) {
+        DOMElements.modalPhoto.src = photo.urls.full;
+        DOMElements.modalPhoto.alt = photo.alt_description || photo.description || 'Full-size Unsplash photo';
+        DOMElements.modalPhotoTitle.textContent = photo.alt_description || photo.description || 'Untitled Photo';
+        DOMElements.modalPhotoDescription.textContent = photo.description || 'No detailed description available.';
+        DOMElements.modalPhotographer.textContent = photo.user.name || 'N/A';
+        DOMElements.modalLikes.textContent = photo.likes !== undefined ? photo.likes.toLocaleString() : 'N/A';
+        DOMElements.modalDownloads.textContent = photo.downloads !== undefined ? photo.downloads.toLocaleString() : 'N/A';
+        DOMElements.modalDimensions.textContent = `${photo.width || 'N/A'}x${photo.height || 'N/A'} px`;
+        DOMElements.modalCreatedAt.textContent = photo.created_at ? new Date(photo.created_at).toLocaleDateString() : 'N/A';
+        DOMElements.modalLocation.textContent = photo.location?.title || 'N/A';
+
+        // --- Tag Section ---
+        DOMElements.modalTags.innerHTML = ''; // Clear previous tags
+        if (photo.tags && photo.tags.length > 0) {
+            photo.tags.slice(0, 5).forEach(tag => { // Display up to 5 tags
+                const tagSpan = document.createElement('span');
+                tagSpan.classList.add('badge', 'rounded-pill');
+                tagSpan.textContent = tag.title || tag.source?.title || 'Unknown Tag';
+                DOMElements.modalTags.appendChild(tagSpan);
+            });
+        } else {
+            DOMElements.modalTags.textContent = 'No tags available.';
+        }
+        // --- End Tag Section ---
+
+        DOMElements.modalDownloadLink.setAttribute('data-img-src', photo.urls.full);
+        const filename = `${cleanFilename(photo.alt_description || photo.description || photo.id)}.jpg`;
+        DOMElements.modalDownloadLink.setAttribute('data-filename', filename);
+
+        DOMElements.modalUnsplashLink.href = photo.links.html;
+        DOMElements.modalUnsplashLink.setAttribute('rel', 'noopener noreferrer'); // Security best practice
+
+        DOMElements.photoDetailModal.show();
+    }
+
+    // --- Core Logic Functions ---
+
+    /**
+     * Loads photos into the gallery, either initial photos or based on a search query.
+     * Handles loading states and 'load more' button visibility.
+     * @param {string} query - The search query string.
+     */
+    async function loadPhotos(query = '') {
+        DOMElements.loadingMessage.style.display = 'block';
+        DOMElements.loadMoreBtn.style.display = 'none'; // Hide load more button initially
+
+        // Only clear gallery if it's a new search (currentPage is 1)
+        if (currentPage === 1) {
+            DOMElements.galleryContainer.innerHTML = '';
+        }
+
+        const photos = await fetchUnsplashPhotos(currentPage, PHOTOS_PER_PAGE, query);
+        if (photos.length > 0) {
+            photos.forEach(photo => {
+                const photoCard = createPhotoCard(photo);
+                DOMElements.galleryContainer.appendChild(photoCard); // Append new photos
+            });
+            currentPage++; // Increment page for next load more
+            DOMElements.loadMoreBtn.style.display = 'block'; // Show load more button
+        } else if (currentPage === 1) {
+            // No photos found for the current search/initial load
+            DOMElements.loadingMessage.innerHTML = '<p class="text-info">No photos found. Try a different search term or check API key permissions.</p>';
+        } else {
+            // No more photos to load for the current query
+            DOMElements.loadMoreBtn.style.display = 'none';
+            const noMorePhotosMsg = document.createElement('p');
+            noMorePhotosMsg.classList.add('text-muted', 'text-center', 'mt-4');
+            noMorePhotosMsg.textContent = `You've seen all the photos${currentSearchQuery ? ` for "${currentSearchQuery}"` : ''}!`;
+            DOMElements.galleryContainer.appendChild(noMorePhotosMsg);
+        }
+        DOMElements.loadingMessage.style.display = 'none'; // Hide loading message
+    }
+
+    // --- Event Handlers ---
+
+    /**
+     * Handles the search form submission.
+     * @param {Event} event - The submit event.
+     */
+    async function handleSearch(event) {
+        event.preventDefault(); // Prevent default form submission
+        const query = DOMElements.searchInput.value.trim();
+
+        // Only perform search if query changed or it's not the first page (to avoid re-loading same results)
+        if (query === currentSearchQuery && currentPage > 1 && DOMElements.galleryContainer.children.length > 0) {
+            return;
+        }
+
+        currentSearchQuery = query;
+        currentPage = 1; // Reset to first page for new search
+        await loadPhotos(currentSearchQuery);
+    }
+
+    /**
+     * Handles clicks within the gallery container, specifically for "View Details" buttons.
+     * @param {Event} event - The click event.
+     */
+    async function handleGalleryClick(event) {
+        const viewDetailsBtn = event.target.closest('.view-details-btn');
+        if (viewDetailsBtn) {
+            const photoId = viewDetailsBtn.dataset.photoId;
+            if (photoId) {
+                const photoDetails = await fetchPhotoDetails(photoId);
+                if (photoDetails) {
+                    populateModal(photoDetails);
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles the click event for the download button in the modal.
+     * @param {Event} event - The click event.
+     */
+    function handleDownloadClick(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const imageUrl = this.getAttribute('data-img-src');
+        const filename = this.getAttribute('data-filename');
+
+        if (imageUrl) {
+            initiateImageDownload(imageUrl, filename);
+        } else {
+            console.error('No image URL found for download.');
+            alert('Could not retrieve image URL for download. Please try again.');
+        }
+    }
+
+    // --- Event Listeners ---
+    DOMElements.loadMoreBtn.addEventListener('click', () => loadPhotos(currentSearchQuery));
+    DOMElements.galleryContainer.addEventListener('click', handleGalleryClick);
+    DOMElements.modalDownloadLink.addEventListener('click', handleDownloadClick);
+    DOMElements.searchForm.addEventListener('submit', handleSearch);
+
+    // --- Initial Load and Tooltip Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Bootstrap Tooltips
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+        // Load initial photos when the DOM is ready
+        loadPhotos();
+    });
+</script>
 </body>
 </html>
