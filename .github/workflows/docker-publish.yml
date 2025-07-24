@@ -6,32 +6,39 @@ on:
     branches:
       - main # Trigger on pushes to the main branch
 
+# Add this permissions block at the top level of your workflow
+permissions:
+  contents: write # This grants write access to the repository contents
+  pages: write    # This grants write access for GitHub Pages deployment
+  id-token: write # Required for some advanced Pages deployments, good to include
+
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4 # Action to checkout your repository code
+      uses: actions/checkout@v4
 
     - name: Set up Node.js (Optional, but good for scripting)
       uses: actions/setup-node@v4
       with:
-        node-version: '18' # Specify a Node.js version
+        node-version: '18'
 
-    # This step will inject your API key into the JavaScript file
     - name: Inject Unsplash API Key
       run: |
-        # Replace the placeholder in your index.html's script
-        # Assuming your script is directly in index.html, modify this path if it's a separate .js file
         sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" index.html
       # If your JS is in a separate file (e.g., script.js), change the path:
       # sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" script.js
-      # Make sure the placeholder in your JS matches exactly!
+
+    - name: Configure Git for Pages deployment (Important for peaceiris/actions-gh-pages@v3)
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      # The peaceiris action usually handles this, but explicitly setting it can help if there are issues.
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3 # Popular action for deploying to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub's default token for authentication
-        publish_dir: ./ # Publish the root directory of your repository
-        # If your files are in a 'docs' folder, use: publish_dir: ./docs
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
