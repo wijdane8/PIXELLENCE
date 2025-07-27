@@ -29,7 +29,7 @@ jobs:
 
       - name: Inject Unsplash API Key
         run: |
-          sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" script.js
+          sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" index.html
         # Replace "script.js" with the correct JS file path if different
 
       - name: Configure Git (for peaceiris)
