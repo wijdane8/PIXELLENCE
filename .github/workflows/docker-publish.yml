@@ -6,42 +6,39 @@ on:
     branches:
       - main # Trigger on pushes to the main branch
 
-# Add this permissions block at the top level of your workflow
 permissions:
-  contents: write # This grants write access to the repository contents
-  pages: write    # This grants write access for GitHub Pages deployment
-  id-token: write # Required for some advanced Pages deployments, good to include
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-    - uses: actions/checkout@v4
-      with:
-        submodules: 'false'
-        clean: true
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+          clean: true
 
-    - name: Set up Node.js (Optional, but good for scripting)
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Inject Unsplash API Key
-      run: |
-        sed -i "s|__UNSPLASH_ACCESS_KEY__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" index.html
-      # If your JS is in a separate file (e.g., script.js), change the path:
-      # sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" script.js
+      - name: Inject Unsplash API Key
+        run: |
+          sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" script.js
+        # Replace "script.js" with the correct JS file path if different
 
-    - name: Configure Git for Pages deployment (Important for peaceiris/actions-gh-pages@v3)
-      run: |
-        git config user.name "GitHub Actions Bot"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      # The peaceiris action usually handles this, but explicitly setting it can help if there are issues.
+      - name: Configure Git (for peaceiris)
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # Make sure this points to your build output (e.g., dist/ or public/)
