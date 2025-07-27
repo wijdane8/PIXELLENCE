@@ -27,7 +27,7 @@ jobs:
 
     - name: Inject Unsplash API Key
       run: |
-        sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" index.html
+        sed -i "s|__UNSPLASH_ACCESS_KEY__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" index.html
       # If your JS is in a separate file (e.g., script.js), change the path:
       # sed -i "s|__UNSPLASH_KEY_PLACEHOLDER__|${{ secrets.UNSPLASH_ACCESS_KEY }}|g" script.js
 
