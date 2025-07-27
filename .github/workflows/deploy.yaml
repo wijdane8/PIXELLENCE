@@ -1,30 +1,46 @@
-name: Deploy to GitHub Pages
+name: Deploy Bootstrap Site
 
 on:
   push:
-    branches: main 
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-
+      
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-
+        
     - name: Install dependencies
       run: npm install
-
-    - name: Build project (if needed)
-      run: npm run build 
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      
+    - name: Prepare deployment folder
+      run: |
+        mkdir -p dist
+        cp -r *.html *.css *.js *.json dist/ || true
+        
+    - name: Copy Bootstrap assets
+      run: |
+        cp -r node_modules/bootstrap/dist dist/bootstrap
+        
+    - name: Update HTML references
+      run: |
+        sed -i 's#node_modules/bootstrap/dist#bootstrap#g' dist/*.html
+        
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist 
+        path: ./dist
+        
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
