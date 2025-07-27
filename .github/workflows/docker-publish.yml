@@ -18,7 +18,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'false'
+        clean: true
 
     - name: Set up Node.js (Optional, but good for scripting)
       uses: actions/setup-node@v4
