@@ -1,4 +1,4 @@
-name: Deploy Bootstrap Site
+name: Deploy Site
 
 on:
   push:
@@ -8,39 +8,43 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write
+  deployments: write
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
+    - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: 20
         
     - name: Install dependencies
       run: npm install
       
-    - name: Prepare deployment folder
+    - name: Build assets
       run: |
         mkdir -p dist
-        cp -r *.html *.css *.js *.json dist/ || true
-        
-    - name: Copy Bootstrap assets
-      run: |
+        cp -r *.html *.css *.js dist/ || true
         cp -r node_modules/bootstrap/dist dist/bootstrap
         
-    - name: Update HTML references
+    - name: Fix paths
       run: |
         sed -i 's#node_modules/bootstrap/dist#bootstrap#g' dist/*.html
         
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./dist
+        path: dist
         
-    - name: Deploy to GitHub Pages
+    - name: Deploy
+      id: deployment
       uses: actions/deploy-pages@v4
